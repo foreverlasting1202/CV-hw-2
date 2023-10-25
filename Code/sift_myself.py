@@ -330,12 +330,18 @@ def match(des1, des2):
     for i in range(len(des1)):
         min_dis = 1e10
         min_j = -1
+        min_dis2 = 1e10
         for j in range(len(des2)):
             dis = np.sqrt(np.sum(np.power(des1[i] - des2[j], 2)))
             if dis < min_dis:
+                min_dis2 = min_dis
                 min_dis = dis
                 min_j = j
-        match.append([i, min_j])
+            else:
+                if dis < min_dis2:
+                    min_dis2 = dis
+        if min_dis < threshold * min_dis2:
+            match.append([i, min_j])
 
     return match
 
