@@ -60,18 +60,23 @@ def dog_pyramid(gp, O, S):
 
 
 def ck_extrema(mat, val):
+    s, w, h = mat.shape
     if val > 0:
-        mat[1, 1, 1] -= 1
-        mat = mat.shape(-1)
-        for x in mat:
-            if x >= val:
-                return False
+        for i in range(s):
+            for j in range(w):
+                for k in range(h):
+                    if i == 1 and j == 1 and k == 1:
+                        continue
+                    if mat[i, j, k] >= val:
+                        return False
     else:
-        mat[1, 1, 1] += 1
-        mat = mat.shape(-1)
-        for x in mat:
-            if x <= val:
-                return False
+        for i in range(s):
+            for j in range(w):
+                for k in range(h):
+                    if i == 1 and j == 1 and k == 1:
+                        continue
+                    if mat[i, j, k] <= val:
+                        return False
     return True
 
 
@@ -120,7 +125,7 @@ def adjust_fit(d, o, s, x, y, S, threshold):
         x += int(np.round(X[1]))
         y += int(np.round(X[0]))
         s += int(np.round(X[2]))
-        if s < 1 or s > S or x < 3 or x > d[s].shape[0] - 3 or y < 3 or y > d[s].shape[1] - 3:
+        if s < 1 or s > S or x < 5 or x > d[s].shape[0] - 5 or y < 5 or y > d[s].shape[1] - 5:
             break
     if flag:
         D = np.dot(dD, X)
